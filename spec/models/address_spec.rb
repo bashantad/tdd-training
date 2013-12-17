@@ -6,6 +6,7 @@ describe Address do
       :street => "41 Stewart",
       :city => "Richmond",
       :zip => "3083",
+      :state => "VIC",
       :person_id => 1
       
     }
@@ -17,11 +18,16 @@ describe Address do
       a.should_not be_valid
     end
     
-    [:street, :city, :zip].each do |attr|
+    [:street, :city, :zip, :state].each do |attr|
       it "should validate presence of #{attr}" do
         a = Address.create
         a.errors.messages[attr].should_not be_nil
       end
+    end
+    
+    it "address must have minimum two letters state field" do
+      a = Address.create(@valid_attr.except(:state).merge(:state => "S"))
+      a.errors.messages[:state].should_not be_blank
     end
   end
   
