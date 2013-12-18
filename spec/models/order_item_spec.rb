@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe OrderItems do
+describe OrderItem do
   context "Validations" do
     before do
       @valid_attr = {
@@ -11,7 +11,7 @@ describe OrderItems do
     end
     [:order, :item, :quantity].each do |attr| 
       it "must have valid #{attr}" do
-        oi = OrderItems.create(@valid_attr.except(attr))
+        oi = OrderItem.create(@valid_attr.except(attr))
         oi.errors.messages[attr].should_not be_nil
       end
     end
@@ -19,11 +19,11 @@ describe OrderItems do
 
   context "Associations" do
     it "should belongs to items" do
-      OrderItems.new.should respond_to(:item)
+      OrderItem.new.should respond_to(:item)
     end
 
     it "should belongs to order" do
-      OrderItems.new.should respond_to(:order)
+      OrderItem.new.should respond_to(:order)
     end
   end
 end

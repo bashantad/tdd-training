@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :person do |p|
-    p.first_name "John"
-    p.last_name "Doe"
+    p.sequence(:first_name) {|n| "John#{n}"}
+    p.sequence(:last_name) {|n| "Doe#{n}" }
   end
   
   factory :message do |m|
@@ -11,9 +11,9 @@ FactoryGirl.define do
   end
   
   factory :item do |i|
-    i.name "pineapple"
-    i.price 4.34
-    i.description "Can be used anywhere"
+    i.sequence(:name) {|n| "pineapple#{n}"} 
+    i.sequence(:price) {|n| 4.34 + n }
+    i.sequence(:description){|n| "Can be used anywhere#{n}"}
   end
   
   factory :customer do |c|
@@ -26,7 +26,7 @@ FactoryGirl.define do
     o.order_date "2013-12-10"
   end
   
-  factory :order_items do |oi|
+  factory :order_item do |oi|
     oi.association :order, :factory => :order
     oi.association :item, :factory => :item
     oi.quantity 4

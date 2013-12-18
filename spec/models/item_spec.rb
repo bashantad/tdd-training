@@ -41,5 +41,21 @@ describe Item do
       item = Item.create(@valid_attr.except(:description))
       item.should be_valid
     end
+    
+    context "Popularity Ranking" do
+      before do
+        @items = 3.times.inject([]) { |res, i| res << create(:item)}
+        @order_items = 3.times.inject([]) {|res, i| res << create(:order_item, :item => @items[0])} + 
+                       5.times.inject([]) {|res, i| res << create(:order_item, :item => @items[1])} + 
+                       2.times.inject([]) {|res, i| res << create(:order_item, :item => @items[2])} 
+        @items.count.should == 3
+        @order_items.count.should == 10
+      end
+      
+      it "should return items popularity by frequency of appearance" do
+        @popular_items = Item.by_popularity
+        Item.by_popularity.should == [@items[1], @items[0], @items[2]]
+      end
+    end
   end  
 end
