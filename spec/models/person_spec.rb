@@ -84,4 +84,22 @@ describe Person do
       p.messages.should == [msg]
     end
   end
+  
+  context "Nested Attributes" do
+    it "should create an address record from attributes" do
+      lambda{
+        lambda{
+          Person.create(
+          :first_name => "Jack",
+          :last_name => "Black",
+          :addresses_attributes => [
+            {:city => "Melbourne",
+            :street => "41 Stewart",
+            :state => "VIC",
+            :zip => "3091"}
+            ])
+          }.should change(Person, :count).by(1)
+        }.should change(Address, :count).by(1)
+      end
+    end
 end

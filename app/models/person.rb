@@ -3,6 +3,7 @@ class Person < ActiveRecord::Base
   scope :find_by_names_starting_with, -> (term) { where("first_name LIKE ? OR last_name LIKE ?",  "#{term}%", "#{term}%" )}
   has_many :addresses
   has_many :messages, :foreign_key => "recipient_id"
+  accepts_nested_attributes_for :addresses
   def joe?
     first_name == "Joe"
   end
