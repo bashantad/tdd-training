@@ -1,10 +1,14 @@
 require 'spec_helper'
 
 describe PeopleController do
+  before do
+    user = create(:user)
+    sign_in(user)
+  end
   describe "GET 'index'" do
     it "returns http success" do
-      get 'index'
-      response.should be_success
+      get :index
+      response.code.should == "200"
     end
     
     it "should render 'index' template" do

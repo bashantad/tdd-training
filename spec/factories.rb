@@ -31,4 +31,9 @@ FactoryGirl.define do
     oi.association :item, :factory => :item
     oi.quantity 4
   end
+  factory :user do |u|
+     u.email 'test@gmail.com'
+     u.password 'test1234'
+     u.password_confirmation 'test1234'
+   end
 end
